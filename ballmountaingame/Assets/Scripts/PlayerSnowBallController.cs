@@ -5,17 +5,23 @@ using UnityEngine;
 public class PlayerSnowBallController : MonoBehaviour {
 
 
-    public float SnowBallSize;
+    public float InititalSnowBallSize;
+    public float SnowAmountIncrease;
+    public float SnowAmountDecrease;
+    public float AvalancheMultiplier;
+    private Rigidbody2D rb;
 
-
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        rb = gameObject.GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (InititalSnowBallSize > 1.5f && rb.velocity.magnitude >0.5) 
+        {
+            InititalSnowBallSize -= SnowAmountDecrease;
+        }
 	}
 
     void OnCollisionEnter2D(Collision2D col)
@@ -25,9 +31,15 @@ public class PlayerSnowBallController : MonoBehaviour {
 
         if (col.gameObject.tag == "Snow")
         {
-            SnowBallSize+=0.01f;
+            InititalSnowBallSize += SnowAmountIncrease;
             Destroy(col.gameObject);
-            Snowball.transform.localScale = new Vector3(SnowBallSize,SnowBallSize,0);
+            Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+        }
+        if (col.gameObject.tag == "AvalancheSnow")
+        {
+            InititalSnowBallSize += SnowAmountIncrease*AvalancheMultiplier;
+            Destroy(col.gameObject);
+            Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
         }
     }
 

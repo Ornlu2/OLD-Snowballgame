@@ -18,7 +18,7 @@ public class LoseState : MonoBehaviour {
 
 		if (health<=0)
 		{
-			SceneManager.LoadScene (5);
+			//SceneManager.LoadScene (5);
 		}
 
 
@@ -27,12 +27,12 @@ public class LoseState : MonoBehaviour {
 	{
 		if (col.tag ==("Respawn"))
 			{
-				SceneManager.LoadScene(5);
+				//SceneManager.LoadScene(5);
 			}
 
 		if (col.tag ==("WinPlatform"))
 			{
-				SceneManager.LoadScene(4);
+				//SceneManager.LoadScene(4);
 			}
 
 	}

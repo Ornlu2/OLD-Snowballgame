@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 public class Treebreak : MonoBehaviour {
 
-	public GameObject Mountain;
+	
 	Rigidbody2D childrb;
 	public float delay;
 	public bool TreeGoingToBreak =false;

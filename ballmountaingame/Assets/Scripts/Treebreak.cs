@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+
 public class Treebreak : MonoBehaviour {
 
 	
@@ -15,6 +16,7 @@ public class Treebreak : MonoBehaviour {
 	public bool TreeVisible;
 	private GameObject CameraCollider;
 	public Collider2D stump;
+
 
 
 	// Use this for initialization
@@ -33,7 +35,6 @@ public class Treebreak : MonoBehaviour {
 
 		deg = rad *Mathf.Rad2Deg;
 
-		TreeDetect ();
 		//Debug.Log(deg);
 
 
@@ -68,28 +69,8 @@ public class Treebreak : MonoBehaviour {
 
 
 
-		if ( deg <= -18 ) 
-		{
-			Debug.Log ("Tree Break Right");
-			if (TreeVisible == true) {
-				Invoke ("TreeBreak", delay);
-
-				treeisstanding = false;
-			}
-
-		}
-	
-
-		else if ( deg >= 18)
-		{
-			Debug.Log ("Tree Break left");
-			if (TreeVisible == true) {
-				Invoke ("TreeBreak", delay);
-
-				treeisstanding = false;
-			}
-		}
-		else if(Application.loadedLevel==1)
+		
+		 if(Application.loadedLevel==1)
 		{
 			
 			//Debug.Log("level 1");
@@ -118,29 +99,27 @@ public class Treebreak : MonoBehaviour {
 
 	}
 
-	void TreeBreak()
+	 public void TreeBreak()
 	{
-		
-			//Debug.Log ("tree breaking");
-		AudioSource audio = GetComponent<AudioSource> ();
-		audio.Play ();
-		childrb.isKinematic = false;
+        //Debug.Log ("tree breaking");
+
+        if(treeisstanding ==true && childrb.isKinematic ==true)
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.Play();
+        }
+        
+        treeisstanding = false;
+
+
+
+        childrb.isKinematic = false;
 		
 			TreeGoingToBreak = false;
 		
 
 	}
-	void TreeDetect()
-	{
-		
-
-		/*else
-		{
-			Debug.Log("Tree NOT Detected");
-
-			TreeVisible = false;
-		}*/
-	}
+	
 
 }
 

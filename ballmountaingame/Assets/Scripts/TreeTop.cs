@@ -38,9 +38,11 @@ public class TreeTop : MonoBehaviour {
 		
 			yield return new WaitForSeconds(TreeTopKillDelay);
         sp.color = new Color(1f, 1f, 1f, Mathf.Lerp(sp.color.a, 0f, fadespeed));
-        if (Mathf.Abs(sp.color.a) <= threshold)
+        yield return new WaitForSeconds(TreeTopKillDelay);
+
+        if (Mathf.Abs(sp.color.a) <= 0.5)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         
 		

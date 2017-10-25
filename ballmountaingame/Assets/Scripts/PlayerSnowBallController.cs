@@ -37,11 +37,10 @@ public class PlayerSnowBallController : MonoBehaviour {
         }
         if (col.gameObject.tag == "AvalancheSnow")
         {
-            InititalSnowBallSize += SnowAmountIncrease*AvalancheMultiplier;
+            InititalSnowBallSize += AvalancheMultiplier;
             Destroy(col.gameObject);
             Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
         }
     }
-
-
+    
 }

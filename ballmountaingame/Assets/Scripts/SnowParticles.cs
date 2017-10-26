@@ -16,25 +16,24 @@ public class SnowParticles : MonoBehaviour {
 
     void Start()
     {
-        collisionEvents = new List<ParticleCollisionEvent>(500);
+        collisionEvents = new List<ParticleCollisionEvent>();
     }
 
     void OnParticleCollision(GameObject other)
     {
-        ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
 
         for (int i = 0; i < collisionEvents.Count; i++)
         {
-           // splatDecalPool.ParticleHit(collisionEvents[i], particleColorGradient);
             EmitAtLocation(collisionEvents[i]);
         }
+        ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
+
 
     }
 
     void EmitAtLocation(ParticleCollisionEvent particleCollisionEvent)
     {
-        SnowPieces.transform.position = particleCollisionEvent.intersection;
-        //SnowPieces.transform.rotation = Quaternion.LookRotation(particleCollisionEvent.normal);
+      
         ParticleSystem.MainModule psMain = SnowPieces.main;
 
         Instantiate(Snow, particleCollisionEvent.intersection,Quaternion.identity);

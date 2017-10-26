@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool isLeftkeyEnabled  = true;
 	private bool isRightkeyEnabled  = true;		
-	private bool shake;
+
 	public void rightmovement()
 	{
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		if (Input.GetKey (KeyCode.LeftArrow)) 
 		{
-			transform.Rotate (0, 0, 15f*Time.deltaTime);
+			transform.Rotate (0, 0, 30f*Time.deltaTime);
+
 
 			if ( gameObject.transform.rotation.z < 40 )
 			{
@@ -45,8 +46,7 @@ public class PlayerMovement : MonoBehaviour {
 		{
 
 
-			transform.Rotate (0, 0, -15f*Time.deltaTime);
-
+			transform.Rotate (0, 0, -30f*Time.deltaTime);
 
 
 			if ( gameObject.transform.rotation.z > -40 )
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			leftmovement ();
 
-
+		
 
 		}
 
@@ -129,3 +129,4 @@ public class PlayerMovement : MonoBehaviour {
 
 
 }
+

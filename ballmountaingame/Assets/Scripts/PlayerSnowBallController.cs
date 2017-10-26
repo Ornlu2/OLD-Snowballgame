@@ -9,6 +9,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     public float SnowAmountIncrease;
     public float SnowAmountDecrease;
     public float AvalancheMultiplier;
+    public float MaxSnowBallSize;
     private Rigidbody2D rb;
 
     // Use this for initialization
@@ -28,18 +29,22 @@ public class PlayerSnowBallController : MonoBehaviour {
     {
         Transform Snowball = gameObject.GetComponentInChildren<Transform>().Find("SnowBall");
 
+        if (InititalSnowBallSize <= MaxSnowBallSize)
+        {
 
-        if (col.gameObject.tag == "Snow")
-        {
-            InititalSnowBallSize += SnowAmountIncrease;
-            Destroy(col.gameObject);
-            Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
-        }
-        if (col.gameObject.tag == "AvalancheSnow")
-        {
-            InititalSnowBallSize += AvalancheMultiplier;
-            Destroy(col.gameObject);
-            Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+
+            if (col.gameObject.tag == "Snow")
+            {
+                InititalSnowBallSize += SnowAmountIncrease;
+                Destroy(col.gameObject);
+                Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+            }
+            if (col.gameObject.tag == "AvalancheSnow")
+            {
+                InititalSnowBallSize += AvalancheMultiplier;
+                Destroy(col.gameObject);
+                Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+            }
         }
     }
     

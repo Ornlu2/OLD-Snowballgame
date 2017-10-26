@@ -23,6 +23,10 @@ public class AvalancheDestruction : MonoBehaviour {
             col.gameObject.GetComponentInParent<Treebreak>().TreeBreak() ;
 
         }
+       if(col.gameObject.tag =="Snow")
+        {
+            Destroy(col.gameObject);
+        }
        
     }
 

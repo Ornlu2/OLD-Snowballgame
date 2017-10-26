@@ -12,7 +12,6 @@ public class Treebreak : MonoBehaviour {
 	public bool treeisstanding = true;
 	float Rad2Deg;
 	float deg;
-	SpriteRenderer sp;
 	public bool TreeVisible;
 	private GameObject CameraCollider;
 	public Collider2D stump;
@@ -22,30 +21,20 @@ public class Treebreak : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		childrb = GetComponentInChildren<Rigidbody2D> ();
-		sp = GetComponent<SpriteRenderer> ();
-
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		float rad = transform.rotation.z;
-		//stump = GameObject.FindWithTag ("TreeStump").GetComponent<Collider2D> ();
-		//CameraCollider = GetComponent<Collider2D> ();
-
+	
 		deg = rad *Mathf.Rad2Deg;
-
-		//Debug.Log(deg);
-
 
 		if (treeisstanding == true) 
 		{
 			TreeRotation ();
 		}
 
-
-
-		 
 		RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, Vector2.down);
 
 		if (hit != null && hit.collider.name == "CameraCollider") 
@@ -66,36 +55,29 @@ public class Treebreak : MonoBehaviour {
 
 	void TreeRotation()
 	{
-
-
-
 		
-		 if(Application.loadedLevel==1)
-		{
 			
-			//Debug.Log("level 1");
-			if ( deg <= -10 ) 
-			{
-				Debug.Log ("Tree Break Right");
-				if (TreeVisible == true) {
-					Invoke ("TreeBreak", delay);
+		if ( deg <= -10 ) 
+		{
+			Debug.Log ("Tree Break Right");
+			if (TreeVisible == true) {
+				Invoke ("TreeBreak", delay);
 
-					treeisstanding = false;
-				}
-
+				treeisstanding = false;
 			}
 
+		}
 
-			else if ( deg >= 10)
-			{
-				Debug.Log ("Tree Break left");
-				if (TreeVisible == true) {
-					Invoke ("TreeBreak", delay);
+		else if ( deg >= 10)
+		{
+			Debug.Log ("Tree Break left");
+			if (TreeVisible == true) {
+				Invoke ("TreeBreak", delay);
 
-					treeisstanding = false;
-				}
+				treeisstanding = false;
 			}
 		}
+		
 
 	}
 
@@ -110,13 +92,8 @@ public class Treebreak : MonoBehaviour {
         }
         
         treeisstanding = false;
-
-
-
         childrb.isKinematic = false;
-		
-			TreeGoingToBreak = false;
-		
+		TreeGoingToBreak = false;
 
 	}
 	

@@ -20,8 +20,7 @@ public class Avalanche : MonoBehaviour {
 
     // Use this for initialization
     void Start (){
-        GameObject LeftSpawn = GameObject.Find("AvalancheSpawnLeft");
-        GameObject RightSpawn = GameObject.Find("AvalancheSpawnRight");
+
 
        StartCoroutine (AvalancheStartWait());
 
@@ -30,7 +29,7 @@ public class Avalanche : MonoBehaviour {
 
     private IEnumerator AvalancheStartWait()
     {
-        Debug.Log("CoRoutine " + AvalancheStartWait() + " has started");
+        //Debug.Log("CoRoutine " + AvalancheStartWait() + " has started");
         yield return new WaitForSeconds(StartTimeDelay);
         Avalanchestarter = true;
         Debug.Log("CoRoutine " + AvalancheStartWait() + " has ended");

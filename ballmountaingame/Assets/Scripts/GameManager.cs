@@ -5,8 +5,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -15,6 +14,8 @@ public class GameManager : MonoBehaviour {
 		{
 			SceneManager.LoadScene (0);
 		}
+
+
 
 
 	}

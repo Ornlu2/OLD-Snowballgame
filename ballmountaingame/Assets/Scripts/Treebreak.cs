@@ -44,10 +44,7 @@ public class Treebreak : MonoBehaviour {
 			TreeVisible = true;
 
 		}
-		else
-		{
-			//Debug.Log ("Im hitting" + hit.collider.name);
-		}
+		
 
 	}
 

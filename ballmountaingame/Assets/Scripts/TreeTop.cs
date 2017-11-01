@@ -37,7 +37,7 @@ public class TreeTop : MonoBehaviour {
        // Debug.Log("thing working");
 		
 			yield return new WaitForSeconds(TreeTopKillDelay);
-        sp.color = new Color(1f, 1f, 1f, Mathf.Lerp(sp.color.a, 0f, fadespeed));
+        sp.color = new Color(1f, 1f, 1f, Mathf.Lerp(sp.color.a, 0.0f, fadespeed));
         yield return new WaitForSeconds(TreeTopKillDelay);
 
         if (Mathf.Abs(sp.color.a) <= 0.5)

@@ -8,8 +8,8 @@ public class BreakablePlatform : MonoBehaviour {
     public bool isBreakable;
     public float SnowballSizeToBreakAt;
 
- 
-   
+
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (isBreakable == true)
@@ -36,5 +36,5 @@ public class BreakablePlatform : MonoBehaviour {
             }
         }
     }
-  
+   
 }

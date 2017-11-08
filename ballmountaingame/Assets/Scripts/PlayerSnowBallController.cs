@@ -23,7 +23,11 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
             InititalSnowBallSize -= SnowAmountDecrease;
         }
-	}
+        if (InititalSnowBallSize < 1.5f)
+        {
+            Debug.Log("GAME LOSS");
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -45,6 +49,10 @@ public class PlayerSnowBallController : MonoBehaviour {
                 Destroy(col.gameObject);
                 Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
             }
+        }
+        if(InititalSnowBallSize <1.5f)
+        {
+            Debug.Log("GAME LOSS");
         }
     }
     

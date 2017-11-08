@@ -12,6 +12,7 @@ public class TreeTop : MonoBehaviour {
     void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		sp = GetComponent<SpriteRenderer> ();
+
 	}
 	
 	// Update is called once per frame
@@ -27,7 +28,16 @@ public class TreeTop : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-        //Destroy(this.gameObject);
+        if(col.rigidbody.tag == "Player")
+        {
+            if(col.rigidbody.velocity.magnitude > 0.5f)
+            {
+                var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>();
+                SnowballSize.InititalSnowBallSize -= SnowballSize.SnowAmountDecrease*2;
+                gameObject.GetComponentInParent<Treebreak>().TreeBreak();
+
+            }
+        }
     }
 
 

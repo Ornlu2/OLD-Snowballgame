@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnowDestruction : MonoBehaviour {
 
-    float timeleft = 20f;
+    float timeleft = 5f;
 
     bool canDie = false;
 
@@ -15,14 +15,14 @@ public class SnowDestruction : MonoBehaviour {
     void Update()
     {
         timeleft -= Time.deltaTime;
-        if(timeleft<=0)
+        if(timeleft<=0  )
         {
             canDie = true;
         }
     }
 
 
-    void OnCollisionStay2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
        // Debug.Log(col.rigidbody.velocity.magnitude);
         if (col.rigidbody.velocity.magnitude <= 0.0f && canDie ==true)

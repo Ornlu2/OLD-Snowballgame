@@ -33,7 +33,7 @@ public class TreeTop : MonoBehaviour {
             if(col.rigidbody.velocity.magnitude > 0.5f)
             {
                 var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>();
-                SnowballSize.InititalSnowBallSize -= SnowballSize.SnowAmountDecrease*2;
+                SnowballSize.SnowBallSize -= SnowballSize.SnowAmountDecrease*2;
                 gameObject.GetComponentInParent<Treebreak>().TreeBreak();
 
             }

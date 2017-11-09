@@ -24,7 +24,7 @@ public class BreakablePlatform : MonoBehaviour {
             
             if (col.gameObject.tag == "Player")
             {
-                var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>().InititalSnowBallSize;
+                var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>().SnowBallSize;
                 if (SnowballSize >= SnowballSizeToBreakAt)
                 {
                     Destroy(this.gameObject);

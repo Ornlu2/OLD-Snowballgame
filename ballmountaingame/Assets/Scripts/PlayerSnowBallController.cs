@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerSnowBallController : MonoBehaviour {
 
 
-    public float InititalSnowBallSize;
+    public float SnowBallSize;
     public float SnowAmountIncrease;
     public float SnowAmountDecrease;
     public float AvalancheMultiplier;
     public float MaxSnowBallSize;
+    bool Grounded = true;
     private Rigidbody2D rb;
+    List<Collider2D> collidedObjects = new List<Collider2D>(2);
 
     // Use this for initialization
     void Start () {
@@ -19,41 +21,104 @@ public class PlayerSnowBallController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (InititalSnowBallSize > 1.5f && rb.velocity.magnitude >0.5) 
+        ChangeSize();
+        collidedObjects.ToString();
+    }
+
+
+    void ChangeSize()
+    {
+        Transform Snowball = gameObject.GetComponentInChildren<Transform>().Find("SnowBall");
+
+        if (SnowBallSize>0f && rb.velocity.magnitude > 35f && Grounded == false)
         {
-            InititalSnowBallSize -= SnowAmountDecrease;
+            SnowBallSize = SnowBallSize - SnowAmountDecrease;
+            Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+            //Debug.Log(rb.velocity.magnitude);
+
         }
-        if (InititalSnowBallSize < 1.5f)
+       
+
+
+        if (SnowBallSize <= 0f)
         {
+
             Debug.Log("GAME LOSS");
         }
+
+        if (Input.GetMouseButtonDown(0) && SnowBallSize > 0f)
+        {
+            SnowBallSize = SnowBallSize * 0.8f;
+            Debug.Log("Shrink");
+
+        }
     }
+
 
     void OnCollisionEnter2D(Collision2D col)
     {
         Transform Snowball = gameObject.GetComponentInChildren<Transform>().Find("SnowBall");
+        if(col.gameObject.tag =="Platform")
+        {
+            Grounded = true;
 
-        if (InititalSnowBallSize <= MaxSnowBallSize)
+        }
+
+        if (SnowBallSize <= MaxSnowBallSize)
         {
 
 
             if (col.gameObject.tag == "Snow")
             {
-                InititalSnowBallSize += SnowAmountIncrease;
+                SnowBallSize = SnowBallSize + SnowAmountIncrease;
                 Destroy(col.gameObject);
-                Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+                Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
             }
             if (col.gameObject.tag == "AvalancheSnow")
             {
-                InititalSnowBallSize += AvalancheMultiplier;
+                SnowBallSize = SnowBallSize + AvalancheMultiplier;
                 Destroy(col.gameObject);
-                Snowball.transform.localScale = new Vector3(InititalSnowBallSize, InititalSnowBallSize, 1);
+                Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+            }
+            
+        }
+        if (!collidedObjects.Contains(col.collider) && col.collider.tag == "Platform")
+        {
+            collidedObjects.Add(col.collider);
+        }
+
+        
+
+        if (SnowBallSize>=MaxSnowBallSize)
+        {
+            if(col.gameObject.tag=="Snow")
+            {
+                Destroy(col.gameObject);
             }
         }
-        if(InititalSnowBallSize <1.5f)
-        {
-            Debug.Log("GAME LOSS");
-        }
+        
     }
-    
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        Grounded = false;
+    }
+
+    private void FixedUpdate()
+    {
+       /* foreach(var collider in collidedObjects)
+        {
+            Debug.Log(collider);
+        }
+        if (collidedObjects.Count == 2)
+        {
+            Debug.Log("hitting two platforms- shrinking");
+            SnowBallSize = SnowBallSize * 0.5f;
+            collidedObjects.Clear(); //clear the list of all tracked objects.
+
+        }
+        collidedObjects.Clear(); //clear the list of all tracked objects.
+        */
+    }
+
+
 }

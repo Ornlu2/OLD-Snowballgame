@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-	private bool isLeftkeyEnabled  = true;
-	private bool isRightkeyEnabled  = true;		
+	public bool isLeftkeyEnabled  = true;
+	public bool isRightkeyEnabled  = true;		
 
 	public void rightmovement()
 	{

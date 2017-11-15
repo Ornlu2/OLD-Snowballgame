@@ -33,9 +33,16 @@ public class TreeTop : MonoBehaviour {
             if(col.rigidbody.velocity.magnitude > 0.5f)
             {
                 var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>();
-                SnowballSize.SnowBallSize -= SnowballSize.SnowAmountDecrease*2;
+                SnowballSize.SnowBallSize -= SnowballSize.SnowAmountDecrease*4;
                 gameObject.GetComponentInParent<Treebreak>().TreeBreak();
-
+                Debug.Log("tree hit player hard");
+            }
+            else
+            {
+                var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>();
+                SnowballSize.SnowBallSize -= SnowballSize.SnowAmountDecrease *2;
+                gameObject.GetComponentInParent<Treebreak>().TreeBreak();
+                Debug.Log("tree hit player soft");
             }
         }
     }

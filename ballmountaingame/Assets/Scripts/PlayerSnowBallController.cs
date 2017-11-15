@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerSnowBallController : MonoBehaviour {
 
@@ -10,17 +11,24 @@ public class PlayerSnowBallController : MonoBehaviour {
     public float SnowAmountDecrease;
     public float AvalancheMultiplier;
     public float MaxSnowBallSize;
+    public UnityEvent SnowLoss;
     bool Grounded = true;
     private Rigidbody2D rb;
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
+    private PlayerMovement enablecontrols;
+    public Transform Snowball;
+
 
     // Use this for initialization
     void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        enablecontrols = GameObject.Find("Mountain").GetComponent<PlayerMovement>();
+        Snowball = GameObject.Find("SnowBall").GetComponent<Transform>();
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         ChangeSize();
         collidedObjects.ToString();
     }
@@ -28,11 +36,12 @@ public class PlayerSnowBallController : MonoBehaviour {
 
     void ChangeSize()
     {
-        Transform Snowball = gameObject.GetComponentInChildren<Transform>().Find("SnowBall");
 
         if (SnowBallSize>0f && rb.velocity.magnitude > 35f && Grounded == false)
         {
             SnowBallSize = SnowBallSize - SnowAmountDecrease;
+            SnowLoss.Invoke();
+            
             Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
             //Debug.Log(rb.velocity.magnitude);
 
@@ -44,6 +53,9 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
 
             Debug.Log("GAME LOSS");
+            enablecontrols.isLeftkeyEnabled = false;
+            enablecontrols.isRightkeyEnabled = false;
+
         }
 
         if (Input.GetMouseButtonDown(0) && SnowBallSize > 0f)

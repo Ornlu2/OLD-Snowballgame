@@ -17,6 +17,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
     private PlayerMovement enablecontrols;
     public Transform Snowball;
+    public Transform Respawn;
 
 
     // Use this for initialization
@@ -48,13 +49,17 @@ public class PlayerSnowBallController : MonoBehaviour {
         }
        
 
-
+        
         if (SnowBallSize <= 0f)
         {
 
             Debug.Log("GAME LOSS");
-            enablecontrols.isLeftkeyEnabled = false;
-            enablecontrols.isRightkeyEnabled = false;
+           // enablecontrols.isLeftkeyEnabled = false;
+           // enablecontrols.isRightkeyEnabled = false;
+            SnowBallSize = 1.5f;
+
+            gameObject.transform.position = Respawn.transform.position;
+
 
         }
 
@@ -109,6 +114,16 @@ public class PlayerSnowBallController : MonoBehaviour {
             }
         }
         
+
+
+        if(col.gameObject.name == "KillVolume")
+        {
+            gameObject.transform.position = Respawn.transform.position;
+            SnowBallSize = 1.5f;
+        }
+
+
+
     }
     private void OnCollisionExit2D(Collision2D col)
     {

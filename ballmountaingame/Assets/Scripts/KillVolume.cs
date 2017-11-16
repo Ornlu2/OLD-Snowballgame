@@ -6,6 +6,10 @@ public class KillVolume : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Destroy(col.gameObject);
+        if (col.gameObject.tag != "Player")
+        {
+            Destroy(col.gameObject);
+
+        }
     }
 }

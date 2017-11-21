@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Events;
 
 public class Avalanche : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Avalanche : MonoBehaviour
     public bool Avalanchestarter = false;
     private bool AvalancheCanActivate = false;
     private int Avalanchechance;
+
+    public UnityEvent ParticleEffect;
 
     [HideInInspector]
     public Vector3 AvalancheSpawnLeft { get; private set; }
@@ -87,6 +90,7 @@ public class Avalanche : MonoBehaviour
     void AvalancheDo()
     {
         Handheld.Vibrate();
+        ParticleEffect.Invoke();
         AvalancheSpawnLeft = AvalancheGenLeft.transform.position;
         AvalancheSpawnRight = AvalancheGenRight.transform.position;
         Vector3 pos = Vector3.Lerp(AvalancheSpawnLeft, AvalancheSpawnRight, UnityEngine.Random.value);

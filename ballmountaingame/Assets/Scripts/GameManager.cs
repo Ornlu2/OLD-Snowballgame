@@ -36,10 +36,14 @@ public class GameManager : MonoBehaviour {
         {
 
 
-            Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 1.0f, fadespeed));
-            DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 1.0f, fadespeed * 0.75f));
+            Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed*Time.deltaTime));
+            DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 100.0f, fadespeed * 0.75f *Time.deltaTime));
         }
-        yield break;
+        else
+        {
+            yield break;
+
+        }
     }
     public void Restart()
     {

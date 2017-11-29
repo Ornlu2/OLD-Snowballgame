@@ -100,7 +100,7 @@ public class Avalanche : MonoBehaviour
     }
     void AvalancheDo()
     {
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
         StartBlinking();
         ParticleEffect.Invoke();
         AvalancheSpawnLeft = AvalancheGenLeft.transform.position;

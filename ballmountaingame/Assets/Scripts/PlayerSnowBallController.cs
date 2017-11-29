@@ -63,6 +63,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
+            rb.isKinematic = true;
 
             //gameObject.transform.position = Respawn.transform.position;
             //gameObject.transform.rotation = Respawn.transform.rotation;
@@ -142,6 +143,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         if(col.gameObject.name == "KillVolume")
         {
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
+            rb.isKinematic = true;
         }
 
 

@@ -12,6 +12,9 @@ public class PlayerSnowBallController : MonoBehaviour {
     public float AvalancheMultiplier;
     public float MaxSnowBallSize;
     public UnityEvent SnowLoss;
+    public UnityEvent SnowGain;
+    public UnityEvent Impact;
+
     bool Grounded = true;
     private Rigidbody2D rb;
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
@@ -32,6 +35,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     void Update () {
         ChangeSize();
         collidedObjects.ToString();
+
     }
 
 
@@ -81,6 +85,12 @@ public class PlayerSnowBallController : MonoBehaviour {
 
         }
 
+        if( rb.velocity.magnitude>= 4 && col.gameObject.tag=="Platform"&& rb.velocity.y >= 3)
+        {
+            Impact.Invoke();
+
+        }
+
         if (SnowBallSize <= MaxSnowBallSize)
         {
 
@@ -89,6 +99,7 @@ public class PlayerSnowBallController : MonoBehaviour {
             {
                 SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + SnowAmountIncrease,100* Time.fixedDeltaTime );
                 Destroy(col.gameObject);
+                SnowGain.Invoke();
                 Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
             }
             if (col.gameObject.tag == "AvalancheSnow")
@@ -96,8 +107,10 @@ public class PlayerSnowBallController : MonoBehaviour {
                 SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + AvalancheMultiplier,100* Time.fixedDeltaTime);
                 Destroy(col.gameObject);
                 Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+                SnowGain.Invoke();
+
             }
-            
+
         }
         if (!collidedObjects.Contains(col.collider) && col.collider.tag == "Platform")
         {
@@ -128,6 +141,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     private void OnCollisionExit2D(Collision2D col)
     {
         Grounded = false;
+
     }
 
     private void FixedUpdate()

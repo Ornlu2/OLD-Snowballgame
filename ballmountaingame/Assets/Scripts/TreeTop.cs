@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 public class TreeTop : MonoBehaviour {
 	Rigidbody2D rb;
@@ -7,12 +8,11 @@ public class TreeTop : MonoBehaviour {
 	SpriteRenderer sp;
     public float fadespeed;
     public float threshold = float.Epsilon;
-
     // Use this for initialization
     void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		sp = GetComponent<SpriteRenderer> ();
-
+        
 	}
 	
 	// Update is called once per frame
@@ -53,11 +53,17 @@ public class TreeTop : MonoBehaviour {
         // Do something
        // Debug.Log("thing working");
 		
-			yield return new WaitForSeconds(TreeTopKillDelay);
+		yield return new WaitForSeconds(TreeTopKillDelay);
         sp.color = new Color(1f, 1f, 1f, Mathf.Lerp(sp.color.a, 0.0f, fadespeed));
         yield return new WaitForSeconds(TreeTopKillDelay);
 
-        if (Mathf.Abs(sp.color.a) <= 0.5)
+        if (Mathf.Abs(sp.color.a) <= 0.3)
+        {
+            Destroy(GetComponent<PolygonCollider2D>());
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1);
+        }
+
+        else if (Mathf.Abs(sp.color.a) <= 0.1)
         {
             Destroy(gameObject);
         }

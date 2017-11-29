@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BreakablePlatform : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class BreakablePlatform : MonoBehaviour {
     public bool isBreakable;
     public float SnowballSizeToBreakAt;
 
-
+    public UnityEvent PlatformBreak;
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -18,21 +19,25 @@ public class BreakablePlatform : MonoBehaviour {
 
             if (col.relativeVelocity.magnitude >= 80f)
             {
-               // Debug.Log(col.relativeVelocity.magnitude);
-                Destroy(this.gameObject);
+                // Debug.Log(col.relativeVelocity.magnitude);
+                PlatformBreak.Invoke();
+
+                //Destroy(gameObject);
             }
             
-            if (col.gameObject.tag == "Player")
+            else if (col.gameObject.tag == "Player")
             {
                 var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>().SnowBallSize;
                 if (SnowballSize >= SnowballSizeToBreakAt)
                 {
-                    Destroy(this.gameObject);
+                    PlatformBreak.Invoke();
+                    //Destroy(gameObject);
                 }
             }
-            if(col.gameObject.tag =="AvalancheSnow")
+           else  if(col.gameObject.tag =="AvalancheSnow")
             {
-                Destroy(this.gameObject);
+                PlatformBreak.Invoke();
+                //Destroy(gameObject);
             }
         }
     }

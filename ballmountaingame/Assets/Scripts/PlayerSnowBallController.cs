@@ -18,16 +18,16 @@ public class PlayerSnowBallController : MonoBehaviour {
     bool Grounded = true;
     private Rigidbody2D rb;
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
-    private MountainRot enablecontrols;
     public Transform Snowball;
     public Transform Respawn;
+    private GameObject Gm;
 
 
     // Use this for initialization
     void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        enablecontrols = GameObject.Find("Mountain").GetComponent<MountainRot>();
         Snowball = GameObject.Find("SnowBall").GetComponent<Transform>();
+        Gm = GameObject.Find("GameManager");
 
     }
 
@@ -57,15 +57,13 @@ public class PlayerSnowBallController : MonoBehaviour {
         if (SnowBallSize <= 0f)
         {
 
-            Debug.Log("GAME LOSS");
-           // enablecontrols.isLeftkeyEnabled = false;
-           // enablecontrols.isRightkeyEnabled = false;
+            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
 
-            gameObject.transform.position = Respawn.transform.position;
-            gameObject.transform.rotation = Respawn.transform.rotation;
-            SnowBallSize = 1.5f;
+            //gameObject.transform.position = Respawn.transform.position;
+            //gameObject.transform.rotation = Respawn.transform.rotation;
+            //SnowBallSize = 1.5f;
 
-            rb.velocity= new Vector2(0,0);
+            //rb.velocity= new Vector2(0,0);
 
 
         }
@@ -87,6 +85,7 @@ public class PlayerSnowBallController : MonoBehaviour {
             Grounded = true;
 
         }
+       
 
         if( rb.velocity.magnitude>= 4 && col.gameObject.tag=="Platform"&& rb.velocity.y >= 3)
         {
@@ -134,8 +133,7 @@ public class PlayerSnowBallController : MonoBehaviour {
 
         if(col.gameObject.name == "KillVolume")
         {
-            gameObject.transform.position = Respawn.transform.position;
-            SnowBallSize = 1.5f;
+            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
         }
 
 
@@ -146,6 +144,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         Grounded = false;
 
     }
+   
 
     private void FixedUpdate()
     {

@@ -126,7 +126,7 @@ public class Avalanche : MonoBehaviour
                 case "0":
                     image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
                     //Play sound
-                    yield return new WaitForSecondsRealtime(5f);
+                    yield return new WaitForSecondsRealtime(10f);
                     break;
                 case "1":
                     image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
@@ -140,7 +140,7 @@ public class Avalanche : MonoBehaviour
     void StartBlinking()
     {
         StopAllCoroutines();
-        image.gameObject.SetActive( true);
+        image.gameObject.SetActive(true);
         StartCoroutine("Blink");
     }
 

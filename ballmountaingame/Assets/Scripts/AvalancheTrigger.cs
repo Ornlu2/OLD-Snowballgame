@@ -8,6 +8,7 @@ public class AvalancheTrigger : MonoBehaviour {
     // Use this for initialization
     void Start () {
         AvalancheSpawner = GameObject.Find("AvalancheSpawner").GetComponent<Avalanche>();
+
 	}
 	
 	// Update is called once per frame

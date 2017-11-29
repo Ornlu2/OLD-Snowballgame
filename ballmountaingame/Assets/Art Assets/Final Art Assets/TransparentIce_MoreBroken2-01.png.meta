@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 9f22a910a6f03514ca36423156693e54
-timeCreated: 1511941111
+guid: 7b12b4fa8f27e09479ce6e6563a2b22e
+timeCreated: 1511983691
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: TransparentIce_MoreBroken_0
+  fileIDToRecycleName: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -46,7 +45,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -82,30 +81,7 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: TransparentIce_MoreBroken_0
-      rect:
-        serializedVersion: 2
-        x: 1112
-        y: 1059
-        width: 2501
-        height: 3595
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -676.47754, y: 1771.9542}
-        - {x: -1218.4404, y: 1546.8108}
-        - {x: -1218.4404, y: -762.99396}
-        - {x: -501.38184, y: -1713.5995}
-        - {x: -459.69238, y: -1713.5995}
-        - {x: -443.0166, y: -1705.2609}
-        - {x: 1250.5, y: -871.39636}
-        - {x: 1250.5, y: 971.4443}
-        - {x: 849.35645, y: 1771.9542}
-      tessellationDetail: 0
+    sprites: []
     outline: []
     physicsShape: []
   spritePackingTag: 

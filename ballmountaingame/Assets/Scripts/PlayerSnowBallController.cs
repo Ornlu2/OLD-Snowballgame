@@ -60,9 +60,12 @@ public class PlayerSnowBallController : MonoBehaviour {
             Debug.Log("GAME LOSS");
            // enablecontrols.isLeftkeyEnabled = false;
            // enablecontrols.isRightkeyEnabled = false;
-            SnowBallSize = 1.5f;
 
             gameObject.transform.position = Respawn.transform.position;
+            gameObject.transform.rotation = Respawn.transform.rotation;
+            SnowBallSize = 1.5f;
+
+            rb.velocity= new Vector2(0,0);
 
 
         }

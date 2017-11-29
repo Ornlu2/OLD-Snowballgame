@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Avalanche : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Avalanche : MonoBehaviour
     public int DurationTime;
     public int StartTimeDelay;
 
+    Image image;
+
     public bool Avalanchestarter = false;
     private bool AvalancheCanActivate = false;
     private int Avalanchechance;
@@ -24,6 +27,14 @@ public class Avalanche : MonoBehaviour
     [HideInInspector]
     public Vector3 AvalancheSpawnLeft { get; private set; }
     public Vector3 AvalancheSpawnRight { get; private set; }
+
+
+    void Start()
+    {
+        image = GameObject.Find("AvalancheWarningSign").GetComponent<Image>();
+        image.gameObject.SetActive(false);
+    }
+
 
     public void StartAvalancheSequence()
     {
@@ -50,7 +61,7 @@ public class Avalanche : MonoBehaviour
 
         yield return new WaitForSeconds(DurationTime);
         Debug.Log("Avalanche Ending");
-
+        StopBlinking();
         AvalancheCanActivate = false;
         StartCoroutine(AvalancheRepeatWait());
         yield break;
@@ -90,6 +101,7 @@ public class Avalanche : MonoBehaviour
     void AvalancheDo()
     {
         Handheld.Vibrate();
+        StartBlinking();
         ParticleEffect.Invoke();
         AvalancheSpawnLeft = AvalancheGenLeft.transform.position;
         AvalancheSpawnRight = AvalancheGenRight.transform.position;
@@ -98,4 +110,44 @@ public class Avalanche : MonoBehaviour
         
     }
 
+
+
+    
+
+  
+
+
+    IEnumerator Blink()
+    {
+        while (true)
+        {
+            switch (image.color.a.ToString())
+            {
+                case "0":
+                    image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
+                    //Play sound
+                    yield return new WaitForSecondsRealtime(5f);
+                    break;
+                case "1":
+                    image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
+                    //Play sound
+                    yield return new WaitForSecondsRealtime(2.5f);
+                    break;
+            }
+        }
+    }
+
+    void StartBlinking()
+    {
+        StopAllCoroutines();
+        image.gameObject.SetActive( true);
+        StartCoroutine("Blink");
+    }
+
+    void StopBlinking()
+    {
+        StopAllCoroutines();
+    }
+
 }
+

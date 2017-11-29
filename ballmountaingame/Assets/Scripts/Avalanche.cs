@@ -25,7 +25,7 @@ public class Avalanche : MonoBehaviour
     public Vector3 AvalancheSpawnLeft { get; private set; }
     public Vector3 AvalancheSpawnRight { get; private set; }
 
-    void Start()
+    public void StartAvalancheSequence()
     {
         StartCoroutine(AvalancheStartWait());
     }

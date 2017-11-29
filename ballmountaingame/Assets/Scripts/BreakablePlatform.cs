@@ -22,7 +22,6 @@ public class BreakablePlatform : MonoBehaviour {
                 // Debug.Log(col.relativeVelocity.magnitude);
                 PlatformBreak.Invoke();
 
-                Destroy(gameObject);
             }
             
             else if (col.gameObject.tag == "Player")
@@ -31,13 +30,11 @@ public class BreakablePlatform : MonoBehaviour {
                 if (SnowballSize >= SnowballSizeToBreakAt)
                 {
                     PlatformBreak.Invoke();
-                    Destroy(gameObject);
                 }
             }
            else  if(col.gameObject.tag =="AvalancheSnow")
             {
                 PlatformBreak.Invoke();
-                Destroy(gameObject);
             }
         }
     }

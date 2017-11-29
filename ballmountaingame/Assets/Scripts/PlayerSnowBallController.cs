@@ -21,7 +21,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     public Transform Snowball;
     public Transform Respawn;
     private GameObject Gm;
-
+    public bool CanChangeSize = true;
 
     // Use this for initialization
     void Start () {
@@ -33,7 +33,12 @@ public class PlayerSnowBallController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        ChangeSize();
+        if(CanChangeSize)
+        {
+            ChangeSize();
+
+        }
+
         collidedObjects.ToString();
 
     }
@@ -92,28 +97,31 @@ public class PlayerSnowBallController : MonoBehaviour {
             Impact.Invoke();
 
         }
-
-        if (SnowBallSize <= MaxSnowBallSize)
+        if(CanChangeSize)
         {
-
-
-            if (col.gameObject.tag == "Snow")
+            if (SnowBallSize <= MaxSnowBallSize)
             {
-                SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + SnowAmountIncrease,100* Time.fixedDeltaTime );
-                Destroy(col.gameObject);
-                SnowGain.Invoke();
-                Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
-            }
-            if (col.gameObject.tag == "AvalancheSnow")
-            {
-                SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + AvalancheMultiplier,100* Time.fixedDeltaTime);
-                Destroy(col.gameObject);
-                Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
-                SnowGain.Invoke();
+
+
+                if (col.gameObject.tag == "Snow")
+                {
+                    SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + SnowAmountIncrease, 100 * Time.fixedDeltaTime);
+                    Destroy(col.gameObject);
+                    SnowGain.Invoke();
+                    Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+                }
+                if (col.gameObject.tag == "AvalancheSnow")
+                {
+                    SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + AvalancheMultiplier, 100 * Time.fixedDeltaTime);
+                    Destroy(col.gameObject);
+                    Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+                    SnowGain.Invoke();
+
+                }
 
             }
-
         }
+        
         if (!collidedObjects.Contains(col.collider) && col.collider.tag == "Platform")
         {
             collidedObjects.Add(col.collider);
@@ -143,6 +151,14 @@ public class PlayerSnowBallController : MonoBehaviour {
     {
         Grounded = false;
 
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "SnowLossStopTrig")
+        {
+            CanChangeSize = false;
+            Debug.Log("PlayerStoppedChangingSize");
+       }
     }
    
 

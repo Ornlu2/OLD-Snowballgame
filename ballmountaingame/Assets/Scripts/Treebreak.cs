@@ -37,7 +37,7 @@ public class Treebreak : MonoBehaviour {
 
 		RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, Vector2.down);
 
-		if (hit != null && hit.collider.name == "CameraCollider") 
+		if ( hit.collider.name == "CameraCollider") 
 		{
 			
 			//Debug.Log ("I'm hitting THE CAMERA");

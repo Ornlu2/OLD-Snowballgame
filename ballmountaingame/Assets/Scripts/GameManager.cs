@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         enablecontrols = GameObject.Find("Mountain").GetComponent<MountainRot>();
         Background.gameObject.SetActive(false);
+
         
     }
 
@@ -28,23 +29,29 @@ public class GameManager : MonoBehaviour {
 	}
    public  IEnumerator PlayerDeath ()
     {
-        Debug.Log("GAME LOSS");
-        Background.gameObject.SetActive(true);
-        enablecontrols.isLeftkeyEnabled = false;
-        enablecontrols.isRightkeyEnabled = false;
-        enablecontrols.isAccelromInputEnabled = false;
-        if (Background.gameObject.activeSelf == true)
+        if (SceneManager.GetActiveScene().buildIndex != 0)
         {
 
 
-            Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed*Time.deltaTime));
-            DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 100.0f, fadespeed * 0.75f *Time.deltaTime));
-        }
-        else
-        {
-            yield break;
+            Debug.Log("GAME LOSS");
+            Background.gameObject.SetActive(true);
+            enablecontrols.isLeftkeyEnabled = false;
+            enablecontrols.isRightkeyEnabled = false;
+            enablecontrols.isAccelromInputEnabled = false;
+            if (Background.gameObject.activeSelf == true)
+            {
 
+
+                Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
+                DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 100.0f, fadespeed * 0.75f * Time.deltaTime));
+            }
+            else
+            {
+                yield break;
+
+            }
         }
+
     }
     public void Restart()
     {

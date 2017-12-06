@@ -21,8 +21,13 @@ public class Avalanche : MonoBehaviour
     public bool Avalanchestarter = false;
     private bool AvalancheCanActivate = false;
     private int Avalanchechance;
+    public bool IsAvalancheActive = false;
 
-    public UnityEvent ParticleEffect;
+    public UnityEvent AvalancheOnParticleEffect;
+    public UnityEvent AvalancheOffParticleEffect;
+
+    private OrientAvalanche Orienter;
+    private bool ShouldBlink;
 
     [HideInInspector]
     public Vector3 AvalancheSpawnLeft { get; private set; }
@@ -33,6 +38,7 @@ public class Avalanche : MonoBehaviour
     {
         image = GameObject.Find("AvalancheWarningSign").GetComponent<Image>();
         image.gameObject.SetActive(false);
+        Orienter = gameObject.GetComponent<OrientAvalanche>();
     }
 
 
@@ -50,7 +56,8 @@ public class Avalanche : MonoBehaviour
     }
     private IEnumerator AvalancheRepeatWait()
     {
-        yield return new WaitForSeconds(repeatTime);
+
+       yield return new WaitForSeconds(repeatTime);
         AvalancheStart();
 
         Debug.Log("repeat Delay timer has ended");
@@ -61,8 +68,10 @@ public class Avalanche : MonoBehaviour
 
         yield return new WaitForSeconds(DurationTime);
         Debug.Log("Avalanche Ending");
-        StopBlinking();
+        StopCoroutine(Blink());
+        IsAvalancheActive = false;
         AvalancheCanActivate = false;
+        AvalancheOffParticleEffect.Invoke();
         StartCoroutine(AvalancheRepeatWait());
         yield break;
 
@@ -72,11 +81,22 @@ public class Avalanche : MonoBehaviour
     {
         if ( Avalanchestarter == true && AvalancheCanActivate == true)
         {
-            AvalancheDo();
-            Debug.Log("Avalanche  happening");
+            if(IsAvalancheActive == false)
+            {
+                StartCoroutine(AvalancheDo());
+
+            }
+            
+
+
+            Orienter.enabled = false;
+
 
         }
-       
+        else
+        {
+            Orienter.enabled = true;
+        }
         
     }
     void AvalancheStart()
@@ -84,7 +104,7 @@ public class Avalanche : MonoBehaviour
 
         Avalanchechance = UnityEngine.Random.Range(1, 10);
         Debug.Log(Avalanchechance);
-       if(Avalanchechance>=7)
+       if(Avalanchechance>=6)
         {
             AvalancheCanActivate = true;
             StartCoroutine(AvalancheDuration());
@@ -98,20 +118,38 @@ public class Avalanche : MonoBehaviour
         }
 
     }
-    void AvalancheDo()
+    IEnumerator AvalancheDo()
     {
-        #if UNITY_IOS
-        {
-        Handheld.Vibrate();
-        }
-        #endif
+        IsAvalancheActive = true;
+        
 
-        StartBlinking();
-        ParticleEffect.Invoke();
-        AvalancheSpawnLeft = AvalancheGenLeft.transform.position;
-        AvalancheSpawnRight = AvalancheGenRight.transform.position;
-        Vector3 pos = Vector3.Lerp(AvalancheSpawnLeft, AvalancheSpawnRight, UnityEngine.Random.value);
-        Instantiate(SnowBall, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
+
+            #if UNITY_IOS
+            {
+                Handheld.Vibrate();
+            }
+            #endif
+
+            StartBlinking();
+            AvalancheOnParticleEffect.Invoke();
+            AvalancheSpawnLeft = AvalancheGenLeft.transform.position;
+            AvalancheSpawnRight = AvalancheGenRight.transform.position;
+        for (int i = 0; i <100;)
+        {
+            Debug.Log("Avalanche happening");
+            float pos = UnityEngine.Random.Range(AvalancheGenLeft.transform.position.x, AvalancheGenRight.transform.position.x);
+
+            Instantiate(SnowBall, new Vector3(pos, transform.position.y, transform.position.z), Quaternion.identity);
+
+            yield return new WaitForSeconds(0.001f);
+            i++;
+        }
+       
+        StartCoroutine(AvalancheDuration());
+        
+        
+        yield break;
+
         
     }
 
@@ -124,19 +162,19 @@ public class Avalanche : MonoBehaviour
 
     IEnumerator Blink()
     {
-        while (true)
+        while (ShouldBlink == true)
         {
             switch (image.color.a.ToString())
             {
                 case "0":
                     image.color = new Color(image.color.r, image.color.g, image.color.b, 1);
                     //Play sound
-                    yield return new WaitForSecondsRealtime(10f);
+                    yield return new WaitForSecondsRealtime(0.1f);
                     break;
                 case "1":
                     image.color = new Color(image.color.r, image.color.g, image.color.b, 0);
                     //Play sound
-                    yield return new WaitForSecondsRealtime(2.5f);
+                    yield return new WaitForSecondsRealtime(0.1f);
                     break;
             }
         }
@@ -144,15 +182,12 @@ public class Avalanche : MonoBehaviour
 
     void StartBlinking()
     {
-        StopAllCoroutines();
         image.gameObject.SetActive(true);
+        ShouldBlink = true;
         StartCoroutine("Blink");
     }
 
-    void StopBlinking()
-    {
-        StopAllCoroutines();
-    }
+   
 
 }
 

@@ -26,6 +26,7 @@ public class SnowParticles : MonoBehaviour {
         {
             EmitAtLocation(collisionEvents[i]);
         }
+        
         ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
 
 

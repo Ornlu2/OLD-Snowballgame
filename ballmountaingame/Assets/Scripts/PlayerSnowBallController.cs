@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerSnowBallController : MonoBehaviour {
 
@@ -63,13 +64,8 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
-            rb.isKinematic = true;
 
-            //gameObject.transform.position = Respawn.transform.position;
-            //gameObject.transform.rotation = Respawn.transform.rotation;
-            //SnowBallSize = 1.5f;
-
-            //rb.velocity= new Vector2(0,0);
+           
 
 
         }
@@ -157,9 +153,24 @@ public class PlayerSnowBallController : MonoBehaviour {
             CanChangeSize = false;
             Debug.Log("PlayerStoppedChangingSize");
        }
-        if (col.gameObject.name == "KillVolume")
+        
+        else if (col.gameObject.tag == "Respawn")
         {
-            rb.isKinematic = true;
+
+            Camera.main.GetComponent<CameraNoRoll>().enabled = false;
+
+
+            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
+        }
+        if (col.gameObject.name == "KillVolume" && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            transform.position = Respawn.transform.position;
+            SnowBallSize = 1.5f;
+            rb.velocity = new Vector2(0, 0);
+        }
+        else if (col.gameObject.name == "KillVolume")
+        {
+           // rb.isKinematic = true;
             rb.simulated = false;
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());

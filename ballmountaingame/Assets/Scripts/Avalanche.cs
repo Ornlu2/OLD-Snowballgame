@@ -86,12 +86,7 @@ public class Avalanche : MonoBehaviour
                 StartCoroutine(AvalancheDo());
 
             }
-            
-
-
             Orienter.enabled = false;
-
-
         }
         else
         {

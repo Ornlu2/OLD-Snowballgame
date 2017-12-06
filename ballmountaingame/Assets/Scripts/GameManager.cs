@@ -8,13 +8,19 @@ public class GameManager : MonoBehaviour {
     private MountainRot enablecontrols;
     public Image Background;
     public Text DeathUITitle;
+    private Image DeathUIButton1;
+    private Image DeathUIButton2;
+
     public float fadespeed;
+    public bool AvalancheActive;
 
     // Use this for initialization
     void Start () {
         enablecontrols = GameObject.Find("Mountain").GetComponent<MountainRot>();
+        AvalancheActive = GameObject.Find("AvalancheSpawner").GetComponent<Avalanche>().Avalanchestarter;
         Background.gameObject.SetActive(false);
-
+        DeathUIButton1 = GameObject.Find("Restart Button").GetComponent<Image>();
+        DeathUIButton2 = GameObject.Find("Main Menu Button").GetComponent<Image>();
         
     }
 
@@ -38,12 +44,19 @@ public class GameManager : MonoBehaviour {
             enablecontrols.isLeftkeyEnabled = false;
             enablecontrols.isRightkeyEnabled = false;
             enablecontrols.isAccelromInputEnabled = false;
+            AvalancheActive = false;
             if (Background.gameObject.activeSelf == true)
             {
+                //for(int i = 0; i<100;)
+                //{
+                    Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed));
+                    DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 100.0f, fadespeed));
+                    DeathUIButton1.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed));
+                    DeathUIButton2.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed));
+                    Debug.Log(DeathUITitle.color);
+                //}
 
 
-                Background.color = new Color(1f, 1f, 1f, Mathf.Lerp(Background.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
-                DeathUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathUITitle.color.a / 2, 100.0f, fadespeed * 0.75f * Time.deltaTime));
             }
             else
             {

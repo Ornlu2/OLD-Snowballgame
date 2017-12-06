@@ -6,7 +6,7 @@ public class MountainRot : MonoBehaviour {
 
     public bool isLeftkeyEnabled = true;
     public bool isRightkeyEnabled = true;
-
+    public bool isAccelromInputEnabled = true;
     public void rightmovement()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -104,25 +104,33 @@ public class MountainRot : MonoBehaviour {
         return Mathf.Repeat(angle, 360);
     }
 
+
+ 
+
+
     void Update()
     {
+#if UNITY_EDITOR
+
         if (isLeftkeyEnabled == true)
         {
-
-
             leftmovement();
-
-
 
         }
 
         if (isRightkeyEnabled == true)
         {
-
             rightmovement();
-
-
         }
+#endif
+#if UNITY_IOS
+        if (isAccelromInputEnabled == true)
+        {
+       
+       
+            transform.Rotate(0, 0, -Input.acceleration.x * 3);
+        }
+#endif
 
         ClampRotation(-40, 40, 0);
 

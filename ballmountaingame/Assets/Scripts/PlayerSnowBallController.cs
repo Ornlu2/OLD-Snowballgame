@@ -140,11 +140,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         
 
 
-        if(col.gameObject.name == "KillVolume")
-        {
-            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
-            rb.isKinematic = true;
-        }
+        
 
 
 
@@ -161,6 +157,13 @@ public class PlayerSnowBallController : MonoBehaviour {
             CanChangeSize = false;
             Debug.Log("PlayerStoppedChangingSize");
        }
+        if (col.gameObject.name == "KillVolume")
+        {
+            rb.isKinematic = true;
+            rb.simulated = false;
+
+            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
+        }
     }
    
 

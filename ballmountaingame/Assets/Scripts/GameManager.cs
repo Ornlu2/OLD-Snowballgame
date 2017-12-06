@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
         Background.gameObject.SetActive(true);
         enablecontrols.isLeftkeyEnabled = false;
         enablecontrols.isRightkeyEnabled = false;
+        enablecontrols.isAccelromInputEnabled = false;
         if (Background.gameObject.activeSelf == true)
         {
 
@@ -48,5 +49,9 @@ public class GameManager : MonoBehaviour {
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

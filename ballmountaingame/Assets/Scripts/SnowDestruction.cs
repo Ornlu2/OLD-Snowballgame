@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SnowDestruction : MonoBehaviour {
 
-    float timeleft = 5f;
+	[SerializeField] float timeleft = 5f;
 
-    bool canDie = false;
+	[SerializeField] bool canDie = false;
+    private Rigidbody2D rb;
 
-	// Use this for initialization
-	void Start () {
-		
+    // Use this for initialization
+    void Start () {
+        rb = gameObject.GetComponent<Rigidbody2D>();
 	}
     void Update()
     {
-        timeleft -= Time.deltaTime;
+		timeleft = timeleft-Time.deltaTime ;
         if(timeleft<=0  )
         {
             canDie = true;
@@ -25,7 +26,7 @@ public class SnowDestruction : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col)
     {
        // Debug.Log(col.rigidbody.velocity.magnitude);
-        if (col.rigidbody.velocity.magnitude <= 0.0f && canDie ==true)
+        if (rb.velocity.magnitude < 1f && canDie ==true)
         {
             Destroy(this.gameObject);
         }

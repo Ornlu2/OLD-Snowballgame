@@ -39,7 +39,7 @@ public class MenuSnowBallController : MonoBehaviour {
         {
             SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize - SnowAmountDecrease, Time.deltaTime * rb.velocity.magnitude * 4);
             SnowLoss.Invoke();
-
+            Debug.Log("Shrinking");
             Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
             //Debug.Log(rb.velocity.magnitude);
 
@@ -54,8 +54,6 @@ public class MenuSnowBallController : MonoBehaviour {
             Grounded = true;
 
         }
-
-
         if (rb.velocity.magnitude >= 4 && col.gameObject.tag == "Platform" && rb.velocity.y >= 3)
         {
 
@@ -72,13 +70,7 @@ public class MenuSnowBallController : MonoBehaviour {
                     Destroy(col.gameObject);
                     Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
                 }
-                if (col.gameObject.tag == "AvalancheSnow")
-                {
-                    SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + AvalancheMultiplier, 100 * Time.fixedDeltaTime);
-                    Destroy(col.gameObject);
-                    Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
-
-                }
+               
 
             }
         
@@ -115,6 +107,11 @@ public class MenuSnowBallController : MonoBehaviour {
             rb.velocity = new Vector2(0, 0);
         }
        
+    }
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        Grounded = false;
+
     }
 
 

@@ -15,6 +15,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     public UnityEvent SnowLoss;
     public UnityEvent SnowGain;
     public UnityEvent Impact;
+    public UnityEvent PlayerWonExplosion;
 
     bool Grounded = true;
     private Rigidbody2D rb;
@@ -23,6 +24,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     public Transform Respawn;
     private GameObject Gm;
     public bool CanChangeSize = true;
+
 
     // Use this for initialization
     void Start () {
@@ -133,10 +135,22 @@ public class PlayerSnowBallController : MonoBehaviour {
                 Destroy(col.gameObject);
             }
         }
-        
+
+        if (col.gameObject.tag == "Ground")
+        {
+            rb.simulated = false;
+            CanChangeSize = false;
+            PlayerWonExplosion.Invoke();
+
+            SnowBallSize = 0;
+            Debug.Log("did thing");
+
+            StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerWin());
 
 
-        
+        }
+
+
 
 
 
@@ -151,6 +165,8 @@ public class PlayerSnowBallController : MonoBehaviour {
         if(col.gameObject.tag == "SnowLossStopTrig")
         {
             CanChangeSize = false;
+
+              
             Debug.Log("PlayerStoppedChangingSize");
        }
         
@@ -175,6 +191,7 @@ public class PlayerSnowBallController : MonoBehaviour {
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
         }
+         
     }
    
 

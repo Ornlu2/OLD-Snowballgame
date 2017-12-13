@@ -22,15 +22,16 @@ public class PlayerSnowBallController : MonoBehaviour {
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
     public Transform Snowball;
     public Transform Respawn;
-    private GameObject Gm;
+    private GameManager Gm;
     public bool CanChangeSize = true;
+    public static float PlayerScore;
 
 
     // Use this for initialization
     void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Snowball = GameObject.Find("SnowBall").GetComponent<Transform>();
-        Gm = GameObject.Find("GameManager");
+        Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
     }
 
@@ -139,11 +140,12 @@ public class PlayerSnowBallController : MonoBehaviour {
         if (col.gameObject.tag == "Ground")
         {
             rb.simulated = false;
+            SnowBallSize = 0;
+            Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
+
             CanChangeSize = false;
             PlayerWonExplosion.Invoke();
 
-            SnowBallSize = 0;
-            Debug.Log("did thing");
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerWin());
 
@@ -165,6 +167,8 @@ public class PlayerSnowBallController : MonoBehaviour {
         if(col.gameObject.tag == "SnowLossStopTrig")
         {
             CanChangeSize = false;
+            PlayerScore = SnowBallSize;
+            Gm.StopSnowing();
 
               
             Debug.Log("PlayerStoppedChangingSize");

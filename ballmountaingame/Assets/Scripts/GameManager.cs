@@ -18,27 +18,25 @@ public class GameManager : MonoBehaviour {
     private Image WonUIButton1;
     private Image WonUIButton2;
 
-    public float PlayerScore;
 
     public List<GameObject> Clouds;
     public float fadespeed;
     public bool AvalancheActive;
-    private PlayerSnowBallController Player;
+    private float PlayerScore;
 
     // Use this for initialization
     void Start () {
         enablecontrols = GameObject.Find("Mountain").GetComponent<MountainRot>();
         AvalancheActive = GameObject.Find("AvalancheSpawner").GetComponent<Avalanche>().Avalanchestarter;
-        DeathBackground.gameObject.SetActive(false);
         DeathUIButton1 = GameObject.Find("Death UI Restart Button").GetComponent<Image>();
         DeathUIButton2 = GameObject.Find("Death UI Main Menu Button").GetComponent<Image>();
 
-        WonBackground.gameObject.SetActive(false);
         WonUIButton1 = GameObject.Find("Won UI Restart Button").GetComponent<Image>();
         WonUIButton2 = GameObject.Find("Won UI Main Menu Button").GetComponent<Image>();
         WonUIScore = GameObject.Find("Won UI Score").GetComponent<Text>();
 
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSnowBallController>();
+        DeathBackground.gameObject.SetActive(false);
+        WonBackground.gameObject.SetActive(false);
 
         Clouds = new List<GameObject>();
 
@@ -88,6 +86,10 @@ public class GameManager : MonoBehaviour {
         {
             Clouds.GetComponent<SnowParticles>().StopSnowing = true;
             Debug.Log("did thing");
+            PlayerScore = PlayerSnowBallController.PlayerScore;
+
+            PlayerScore = PlayerScore * 100;
+            Debug.Log("Changed Score");
         }
 
     }
@@ -105,18 +107,18 @@ public class GameManager : MonoBehaviour {
             enablecontrols.isAccelromInputEnabled = false;
             AvalancheActive = false;
 
-            PlayerScore = Player.SnowBallSize * 100;
-           
-            
+
+
 
             if (WonBackground.gameObject.activeSelf == true)
             {
-                WonUIScore.text ="Score: "+ PlayerScore.ToString();
-                WonBackground.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonBackground.color.a / 2, 100.0f, fadespeed));
-                WonUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUITitle.color.a / 2, 100.0f, fadespeed));
-                WonUIButton1.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUIButton1.color.a / 2, 100.0f, fadespeed));
-                WonUIButton2.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUIButton2.color.a / 2, 100.0f, fadespeed));
+                WonUIScore.text = "Score: " + PlayerScore.ToString();
 
+                WonBackground.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonBackground.color.a / 2, 100.0f, fadespeed* Time.deltaTime));
+                WonUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUITitle.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
+                WonUIButton1.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUIButton1.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
+                WonUIButton2.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUIButton2.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
+                WonUIScore.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUIScore.color.a / 2, 100.0f, fadespeed * Time.deltaTime));
 
             }
             else

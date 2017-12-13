@@ -90,7 +90,21 @@ public class MenuSnowBallController : MonoBehaviour {
             }
         }
 
-    }
+        if (Input.GetMouseButtonDown(0) && SnowBallSize > 0)
+        {
+            SnowBallSize = SnowBallSize * 0.8f;
+            Debug.Log("Shrink");
+
+        }
+        if(SnowBallSize<= 0)
+            {
+                SnowBallSize = 1.5f;
+
+                transform.position = Respawn.transform.position;
+                rb.velocity = new Vector2(0, 0);
+            }
+
+        }
 
         
 

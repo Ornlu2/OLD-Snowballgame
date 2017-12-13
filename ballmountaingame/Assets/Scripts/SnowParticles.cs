@@ -15,27 +15,30 @@ public class SnowParticles : MonoBehaviour {
 
     List<ParticleCollisionEvent> collisionEvents;
 
-    void Start()
+    void Awake()
     {
         collisionEvents = new List<ParticleCollisionEvent>();
+        
     }
 
     void OnParticleCollision(GameObject other)
     {
-        if (StopSnowing == false)
+        if (collisionEvents.Count >= 0)
         {
-            for (int i = 0; i < collisionEvents.Count; i++)
+
+
+            if (StopSnowing == false)
             {
-                EmitAtLocation(collisionEvents[i]);
+                for (int i = 0; i < collisionEvents.Count; i++)
+                {
+                    EmitAtLocation(collisionEvents[i]);
+                    Debug.Log(collisionEvents.Count);
+                }
+
+
+                ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
 
             }
-            if (collisionEvents.Count < 0)
-            {
-                return;
-            }
-
-            ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
-
         }
     }
 

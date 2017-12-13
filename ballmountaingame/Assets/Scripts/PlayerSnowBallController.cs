@@ -65,24 +65,24 @@ public class PlayerSnowBallController : MonoBehaviour {
        
 
         
-        if (SnowBallSize <= 0f)
+        else if (SnowBallSize <= 0f)
         {
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
             Danger.StopCoroutine("Blink");
 
         }
-        if (SnowBallSize < SizeToBlinkAt)
+        else if (SnowBallSize < SizeToBlinkAt)
         {
             Danger.StartBlinking();
             Debug.Log("Blinking");
         }
-        if (SnowBallSize > SizeToBlinkAt)
+        else if (SnowBallSize > SizeToBlinkAt)
         {
             Danger.StopBlinking();
         }
 
-        if (Input.GetMouseButtonDown(0) && SnowBallSize > 0.5)
+         if (Input.GetMouseButtonDown(0) && SnowBallSize > 0.5)
         {
             SnowBallSize = SnowBallSize * 0.8f;
             Debug.Log("Shrink");

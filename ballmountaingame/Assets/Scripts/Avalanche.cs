@@ -19,7 +19,7 @@ public class Avalanche : MonoBehaviour
     Image image;
 
     public bool Avalanchestarter = false;
-    private bool AvalancheCanActivate = false;
+    public bool AvalancheCanActivate = false;
     private int Avalanchechance;
     public bool IsAvalancheActive = false;
 
@@ -121,8 +121,12 @@ public class Avalanche : MonoBehaviour
 
             #if UNITY_IOS
             {
+            while(IsAvalancheActive == true)
+            {
                 Handheld.Vibrate();
+
             }
+        }
             #endif
 
             StartBlinking();
@@ -180,6 +184,12 @@ public class Avalanche : MonoBehaviour
         image.gameObject.SetActive(true);
         ShouldBlink = true;
         StartCoroutine("Blink");
+    }
+    public void StopBlinking()
+    {
+        image.gameObject.SetActive(false);
+        ShouldBlink = false;
+        StopCoroutine("Bink");
     }
 
    

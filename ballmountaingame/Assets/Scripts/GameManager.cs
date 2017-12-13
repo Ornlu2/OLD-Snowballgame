@@ -21,14 +21,14 @@ public class GameManager : MonoBehaviour {
 
     public List<GameObject> Clouds;
     public float fadespeed;
-    public bool AvalancheActive;
+    private Avalanche AvalancheActive;
     public float PlayerScore;
     public GameObject Ground;
 
     // Use this for initialization
     void Start () {
         enablecontrols = GameObject.Find("Mountain").GetComponent<MountainRot>();
-        AvalancheActive = GameObject.Find("AvalancheSpawner").GetComponent<Avalanche>().Avalanchestarter;
+        AvalancheActive = GameObject.Find("AvalancheSpawner").GetComponent<Avalanche>();
         DeathUIButton1 = GameObject.Find("Death UI Restart Button").GetComponent<Image>();
         DeathUIButton2 = GameObject.Find("Death UI Main Menu Button").GetComponent<Image>();
 
@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour {
             enablecontrols.isLeftkeyEnabled = false;
             enablecontrols.isRightkeyEnabled = false;
             enablecontrols.isAccelromInputEnabled = false;
-            AvalancheActive = false;
+            AvalancheActive.StopBlinking();
+            AvalancheActive.AvalancheCanActivate = false;
             Ground.gameObject.SetActive(false);
             Camera.main.GetComponent<CameraLook>().enabled = false;
 
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour {
     }
     public IEnumerator StopSnowing()
     {
-        PlayerScore = PlayerScore * 100;
+        PlayerScore = Mathf.Round( PlayerScore * 100);
         Debug.Log("Changed Score");
 
         foreach (GameObject Clouds in Clouds)
@@ -106,7 +107,8 @@ public class GameManager : MonoBehaviour {
             enablecontrols.isLeftkeyEnabled = false;
             enablecontrols.isRightkeyEnabled = false;
             enablecontrols.isAccelromInputEnabled = false;
-            AvalancheActive = false;
+            AvalancheActive.AvalancheCanActivate = false;
+            AvalancheActive.StopBlinking();
 
 
             WonUIScore.text = "Score: " + PlayerScore.ToString();

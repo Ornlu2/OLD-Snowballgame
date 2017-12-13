@@ -99,9 +99,10 @@ public class MenuSnowBallController : MonoBehaviour {
         if(SnowBallSize<= 0)
             {
                 SnowBallSize = 1.0f;
+                transform.position = Respawn.transform.position;
+
                 rb.velocity = new Vector2(0, 0);
 
-                transform.position = Respawn.transform.position;
             }
 
         }

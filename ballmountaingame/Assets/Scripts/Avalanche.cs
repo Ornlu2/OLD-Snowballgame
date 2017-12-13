@@ -121,7 +121,7 @@ public class Avalanche : MonoBehaviour
 
             #if UNITY_IOS
             {
-            while(IsAvalancheActive == true)
+            for  (int i = 0; i <DurationTime; i++)
             {
                 Handheld.Vibrate();
 

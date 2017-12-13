@@ -12,7 +12,6 @@ public class SnowParticles : MonoBehaviour {
     public ParticleSystem SnowPieces;
     public GameObject Snow;
     public bool StopSnowing;
-    public GameObject Player;
 
     List<ParticleCollisionEvent> collisionEvents;
 

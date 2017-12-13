@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> Clouds;
     public float fadespeed;
     public bool AvalancheActive;
-    private float PlayerScore;
+    public float PlayerScore;
+    public GameObject Ground;
 
     // Use this for initialization
     void Start () {
@@ -49,15 +50,11 @@ public class GameManager : MonoBehaviour {
 		{
 			SceneManager.LoadScene (0);
 		}
-
 	}
    public  IEnumerator PlayerDeath ()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-
-
-
 
             Debug.Log("GAME LOSS");
             DeathBackground.gameObject.SetActive(true);
@@ -65,6 +62,9 @@ public class GameManager : MonoBehaviour {
             enablecontrols.isRightkeyEnabled = false;
             enablecontrols.isAccelromInputEnabled = false;
             AvalancheActive = false;
+            Ground.gameObject.SetActive(false);
+            Camera.main.GetComponent<CameraLook>().enabled = false;
+
             if (DeathBackground.gameObject.activeSelf == true)
             {
                 DeathBackground.color = new Color(1f, 1f, 1f, Mathf.Lerp(DeathBackground.color.a / 2, 100.0f, fadespeed));
@@ -80,17 +80,18 @@ public class GameManager : MonoBehaviour {
         }
 
     }
-    public void StopSnowing()
+    public IEnumerator StopSnowing()
     {
+        PlayerScore = PlayerScore * 100;
+        Debug.Log("Changed Score");
+
         foreach (GameObject Clouds in Clouds)
         {
             Clouds.GetComponent<SnowParticles>().StopSnowing = true;
-            Debug.Log("did thing");
-            PlayerScore = PlayerSnowBallController.PlayerScore;
+            Debug.Log("Stopped Snowing");
 
-            PlayerScore = PlayerScore * 100;
-            Debug.Log("Changed Score");
         }
+        yield break;
 
     }
 
@@ -108,11 +109,11 @@ public class GameManager : MonoBehaviour {
             AvalancheActive = false;
 
 
+            WonUIScore.text = "Score: " + PlayerScore.ToString();
 
 
             if (WonBackground.gameObject.activeSelf == true)
             {
-                WonUIScore.text = "Score: " + PlayerScore.ToString();
 
                 WonBackground.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonBackground.color.a / 2, 100.0f, fadespeed* Time.deltaTime));
                 WonUITitle.color = new Color(1f, 1f, 1f, Mathf.Lerp(WonUITitle.color.a / 2, 100.0f, fadespeed * Time.deltaTime));

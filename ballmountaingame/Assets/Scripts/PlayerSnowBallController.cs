@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerSnowBallController : MonoBehaviour {
+    [SerializeField]
 
 
     public float SnowBallSize;
@@ -12,6 +13,8 @@ public class PlayerSnowBallController : MonoBehaviour {
     public float SnowAmountDecrease;
     public float AvalancheMultiplier;
     public float MaxSnowBallSize;
+    public float SizeToBlinkAt  = 0.75f;
+      float PlayerScore;
     public UnityEvent SnowLoss;
     public UnityEvent SnowGain;
     public UnityEvent Impact;
@@ -22,17 +25,16 @@ public class PlayerSnowBallController : MonoBehaviour {
     List<Collider2D> collidedObjects = new List<Collider2D>(2);
     public Transform Snowball;
     public Transform Respawn;
-    private GameManager Gm;
+    public GameManager Gm;
     public bool CanChangeSize = true;
-    public static float PlayerScore;
+    
+    public DangerExclamationPoint Danger;
 
 
     // Use this for initialization
     void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
         Snowball = GameObject.Find("SnowBall").GetComponent<Transform>();
-        Gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-
     }
 
     // Update is called once per frame
@@ -67,13 +69,20 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
 
             StartCoroutine(Gm.gameObject.GetComponent<GameManager>().PlayerDeath());
-
-           
-
+            Danger.StopCoroutine("Blink");
 
         }
+        if (SnowBallSize < SizeToBlinkAt)
+        {
+            Danger.StartBlinking();
+            Debug.Log("Blinking");
+        }
+        if (SnowBallSize > SizeToBlinkAt)
+        {
+            Danger.StopBlinking();
+        }
 
-        else  if (Input.GetMouseButtonDown(0) && SnowBallSize > 0)
+        if (Input.GetMouseButtonDown(0) && SnowBallSize > 0.5)
         {
             SnowBallSize = SnowBallSize * 0.8f;
             Debug.Log("Shrink");
@@ -167,10 +176,12 @@ public class PlayerSnowBallController : MonoBehaviour {
         if(col.gameObject.tag == "SnowLossStopTrig")
         {
             CanChangeSize = false;
-            PlayerScore = SnowBallSize;
-            Gm.StopSnowing();
+            Gm.PlayerScore = SnowBallSize;
+            Gm.StartCoroutine("StopSnowing");
+            Danger.StopBlinking();
 
-              
+
+
             Debug.Log("PlayerStoppedChangingSize");
        }
         
@@ -185,7 +196,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         if (col.gameObject.name == "KillVolume" && SceneManager.GetActiveScene().buildIndex == 0)
         {
             transform.position = Respawn.transform.position;
-            SnowBallSize = 1.5f;
+            SnowBallSize = 1.0f;
             rb.velocity = new Vector2(0, 0);
         }
         else if (col.gameObject.name == "KillVolume")

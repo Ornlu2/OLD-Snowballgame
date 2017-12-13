@@ -19,7 +19,7 @@ public class IceShards : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col)
     {
 
-        if (col.rigidbody.tag == "Player")
+        if (col.gameObject.tag == "Player")
         {
 
            // var SnowballSize = col.gameObject.GetComponent<PlayerSnowBallController>();

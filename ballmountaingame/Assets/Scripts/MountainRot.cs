@@ -123,6 +123,19 @@ public class MountainRot : MonoBehaviour {
             rightmovement();
         }
 #endif
+#if UNITY_STANDALONE_WIN
+
+        if (isLeftkeyEnabled == true)
+        {
+            leftmovement();
+
+        }
+
+        if (isRightkeyEnabled == true)
+        {
+            rightmovement();
+        }
+#endif
 #if UNITY_IOS
         if (isAccelromInputEnabled == true)
         {

@@ -55,7 +55,7 @@ public class PlayerSnowBallController : MonoBehaviour {
 
         if (SnowBallSize>0f && rb.velocity.magnitude > 35f && Grounded == false)
         {
-           SnowBallSize =  Mathf.Lerp(SnowBallSize, SnowBallSize - SnowAmountDecrease,   Time.deltaTime*rb.velocity.magnitude*4);
+           SnowBallSize =  Mathf.Lerp(SnowBallSize, SnowBallSize - SnowAmountDecrease,   Time.deltaTime*rb.velocity.magnitude*2);
             SnowLoss.Invoke();
             
             Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);

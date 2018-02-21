@@ -10,8 +10,10 @@ public class SnowDestruction : MonoBehaviour {
     private Rigidbody2D rb;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        canDie = false;
+        timeleft = 5f;
 	}
     void Update()
     {
@@ -28,7 +30,7 @@ public class SnowDestruction : MonoBehaviour {
        // Debug.Log(col.rigidbody.velocity.magnitude);
         if (rb.velocity.magnitude < 1f && canDie ==true)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 

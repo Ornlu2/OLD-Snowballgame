@@ -14,7 +14,7 @@ public class PlayerSnowBallController : MonoBehaviour {
     public float AvalancheMultiplier;
     public float MaxSnowBallSize;
     public float SizeToBlinkAt  = 0.75f;
-      float PlayerScore;
+    float PlayerScore;
     public UnityEvent SnowLoss;
     public UnityEvent SnowGain;
     public UnityEvent Impact;
@@ -115,14 +115,14 @@ public class PlayerSnowBallController : MonoBehaviour {
                 if (col.gameObject.tag == "Snow")
                 {
                     SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + SnowAmountIncrease, 100 * Time.fixedDeltaTime);
-                    Destroy(col.gameObject);
+                    col.gameObject.SetActive(false);
                     SnowGain.Invoke();
                     Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
                 }
                 if (col.gameObject.tag == "AvalancheSnow")
                 {
                     SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + AvalancheMultiplier, 100 * Time.fixedDeltaTime);
-                    Destroy(col.gameObject);
+                    col.gameObject.SetActive(false);
                     Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
                     SnowGain.Invoke();
 
@@ -142,7 +142,7 @@ public class PlayerSnowBallController : MonoBehaviour {
         {
             if(col.gameObject.tag=="Snow")
             {
-                Destroy(col.gameObject);
+                col.gameObject.SetActive(false);
             }
         }
 

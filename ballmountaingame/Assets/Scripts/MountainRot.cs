@@ -7,6 +7,13 @@ public class MountainRot : MonoBehaviour {
     public bool isLeftkeyEnabled = true;
     public bool isRightkeyEnabled = true;
     public bool isAccelromInputEnabled = true;
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+    }
+
     public void rightmovement()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -17,8 +24,9 @@ public class MountainRot : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Rotate(0, 0, 30f * Time.deltaTime);
-
+            //transform.Rotate(0, 0, 30f * Time.deltaTime);
+            rb.rotation=rb.transform.rotation.z +30f*Time.deltaTime;
+            
 
             if (gameObject.transform.rotation.z < 40)
             {
@@ -100,7 +108,7 @@ public class MountainRot : MonoBehaviour {
         while (angle < 0)
             angle += 360;
 
-        //If its to positive rotate until within range
+        //If its  positive rotate until within range
         return Mathf.Repeat(angle, 360);
     }
 

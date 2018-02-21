@@ -6,10 +6,9 @@ public class KillVolume : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag != "Player")
+        if (col.gameObject.tag == "Snow")
         {
-            Destroy(col.gameObject);
-
+            col.gameObject.SetActive(false);
         }
     }
 }

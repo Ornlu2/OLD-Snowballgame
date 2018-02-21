@@ -54,10 +54,7 @@ public class MenuSnowBallController : MonoBehaviour {
             Grounded = true;
 
         }
-        if (rb.velocity.magnitude >= 4 && col.gameObject.tag == "Platform" && rb.velocity.y >= 3)
-        {
-
-        }
+      
         if (CanChangeSize)
         {
             if (SnowBallSize <= MaxSnowBallSize)
@@ -67,7 +64,7 @@ public class MenuSnowBallController : MonoBehaviour {
                 if (col.gameObject.tag == "Snow")
                 {
                     SnowBallSize = Mathf.Lerp(SnowBallSize, SnowBallSize + SnowAmountIncrease, 100 * Time.fixedDeltaTime);
-                    Destroy(col.gameObject);
+                    col.gameObject.SetActive(false);
                     Snowball.transform.localScale = new Vector3(SnowBallSize, SnowBallSize, 1);
                 }
                
@@ -80,36 +77,26 @@ public class MenuSnowBallController : MonoBehaviour {
             collidedObjects.Add(col.collider);
         }
 
-
-
         if (SnowBallSize >= MaxSnowBallSize)
         {
             if (col.gameObject.tag == "Snow")
             {
-                Destroy(col.gameObject);
+                    col.gameObject.SetActive(false);
+                }
             }
-        }
 
         if (Input.GetMouseButtonDown(0) && SnowBallSize > 0)
         {
             SnowBallSize = SnowBallSize * 0.8f;
             Debug.Log("Shrink");
-
         }
         if(SnowBallSize<= 0)
             {
                 SnowBallSize = 1.0f;
                 transform.position = Respawn.transform.position;
-
                 rb.velocity = new Vector2(0, 0);
-
             }
-
-        }
-
-        
-
-        
+        } 
     }
     void OnTriggerEnter2D(Collider2D col)
     {

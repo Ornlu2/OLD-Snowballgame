@@ -24,9 +24,9 @@ public class MountainRot : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //transform.Rotate(0, 0, 30f * Time.deltaTime);
-            rb.rotation=rb.transform.rotation.z +30f*Time.deltaTime;
-            
+            transform.Rotate(0, 0, 30f * Time.deltaTime);
+           // rb.MoveRotation(rb.transform.rotation.z+30f*Time.fixedDeltaTime);
+           
 
             if (gameObject.transform.rotation.z < 40)
             {

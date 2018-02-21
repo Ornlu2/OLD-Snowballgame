@@ -16,7 +16,7 @@ public class SnowParticles : MonoBehaviour {
     List<ParticleCollisionEvent> collisionEvents;
     ObjectPooler objectPooler;
 
-    void Awake()
+    void Start()
     {
         collisionEvents = new List<ParticleCollisionEvent>();
         objectPooler = ObjectPooler.Instance;
@@ -49,6 +49,7 @@ public class SnowParticles : MonoBehaviour {
       
         ParticleSystem.MainModule psMain = SnowPieces.main;
 
+       // Instantiate(Snow, particleCollisionEvent.intersection,Quaternion.identity);
         objectPooler.SpawnFromPool("Snow", particleCollisionEvent.intersection, Quaternion.identity);
 
     }

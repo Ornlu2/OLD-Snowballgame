@@ -8,7 +8,9 @@ public class ButtonManager : MonoBehaviour {
     private GameObject Platforms;
     private GameObject Player;
     private GameObject CreditsText;
+    public GameObject PauseMenu;
     private Text CreditsButtonText;
+    private GameManager gameManager;
 
     void Start()
     {
@@ -20,6 +22,12 @@ public class ButtonManager : MonoBehaviour {
             CreditsText.SetActive(false);
             CreditsButtonText = GameObject.Find("Credits Button").GetComponentInChildren<Text>();
         }
+        else
+        {
+            PauseMenu.SetActive(false);
+            
+        }
+        gameManager = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
     public void MainMenu()
@@ -32,6 +40,7 @@ public class ButtonManager : MonoBehaviour {
 	}
 	public void Level2()
 	{
+
 	}
 	public void Instructions()
 	{
@@ -41,6 +50,20 @@ public class ButtonManager : MonoBehaviour {
 	{
 		Application.Quit ();
 	}
+    public void PauseGame()
+    {
+        PauseMenu.SetActive(true);
+        gameManager.PauseGame();
+    }
+    public void ResumeGame()
+    {
+        PauseMenu.SetActive(false);
+        gameManager.ResumeGame();
+    }
+    public void Options()
+    {
+
+    }
     public void Credits()
     {
         if (CreditsActive == false)

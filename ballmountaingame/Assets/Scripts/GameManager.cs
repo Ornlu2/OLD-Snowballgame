@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
+    public bool IsGamePaused;
 
     private MountainRot enablecontrols;
     public Image DeathBackground;
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour {
     private Image WonUIButton1;
     private Image WonUIButton2;
 
-
+    public GameObject PauseMenu;
     public List<GameObject> Clouds;
     public float fadespeed;
     private Avalanche AvalancheActive;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour {
 
         DeathBackground.gameObject.SetActive(false);
         WonBackground.gameObject.SetActive(false);
+        PauseMenu.SetActive(false);
 
         Clouds = new List<GameObject>();
 
@@ -132,6 +134,20 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        IsGamePaused = true;
+
+        Debug.LogWarning("Game Paused");
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        IsGamePaused = false;
+        Debug.LogWarning("Game Resumed");
+    }
+ 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
